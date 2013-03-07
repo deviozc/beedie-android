@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_menu">
+        <item>@string/label_twitter</item>
+        <item >@string/label_facebook</item>
+        <item >@string/label_flickr</item>
+        <item >@string/label_pinterest</item>
+    </string-array>
+    
+</resources>
