@@ -4,5 +4,11 @@
     <string name="app_name">BeedieApp</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="label_twitter">Twitter</string>
+    <string name="label_facebook">Facebook</string>
+    <string name="label_flickr">Flickr</string>
+    <string name="label_bba">BBA</string>
+    <string name="label_picasa">Picasa</string>
+    <string name="label_pinterest">pinterest</string>
 
 </resources>
