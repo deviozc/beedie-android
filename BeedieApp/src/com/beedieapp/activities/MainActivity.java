@@ -7,19 +7,23 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.beedieapp.R;
+import com.beedieapp.controller.NavigationItemManager;
 
 
-public class MainActivity extends SherlockActivity implements ActionBar.OnNavigationListener{
+public class MainActivity extends SherlockFragmentActivity implements ActionBar.OnNavigationListener{
 	private TextView mSelected;
     private String[] mLocations;
+    private NavigationItemManager navigationItemManager;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.Theme_Sherlock);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		this.navigationItemManager = new NavigationItemManager(this);
 		mSelected = (TextView)findViewById(R.id.text);
 
         mLocations = getResources().getStringArray(R.array.list_menu);
@@ -29,7 +33,7 @@ public class MainActivity extends SherlockActivity implements ActionBar.OnNaviga
 		list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
 
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        getSupportActionBar().setListNavigationCallbacks(list, this);
+        getSupportActionBar().setListNavigationCallbacks(list, navigationItemManager);
 	}
 
 	@Override
@@ -45,4 +49,5 @@ public class MainActivity extends SherlockActivity implements ActionBar.OnNaviga
         return true;
 	}
 
+	
 }
