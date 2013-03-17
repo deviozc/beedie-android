@@ -1,6 +1,7 @@
 package com.beedieapp.controller;
 
 import android.R;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.TextView;
@@ -25,12 +26,33 @@ public class NavigationItemManager implements ActionBar.OnNavigationListener{
 	}
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		if(itemPosition == 0){
-			FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-			ft.add(R.id.tabcontent, new ListFragment(), null);
-			ft.commit();
-			activity.getSupportFragmentManager().executePendingTransactions();
-		}
+		
+			ListFragment newFragment = new ListFragment();
+//		  if (activity.getSupportFragmentManager().findFragmentById(android.R.id.tabcontent) == null) {
+			  if(itemPosition == 0){
+//			FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+//			ft.add(R.id.tabcontent, new ListFragment(), null);
+//			ft.commit();
+//			activity.getSupportFragmentManager().executePendingTransactions();
+			  
+			  newFragment.setLabel("Twitter");
+			  }else if(itemPosition == 1){
+				  newFragment.setLabel("Facebook");
+			  }
+			  else if(itemPosition == 2){
+				  newFragment.setLabel("Flickr");
+			  }else if(itemPosition == 3){
+				  newFragment.setLabel("Facebook");
+			  }
+			  FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+			  if (activity.getSupportFragmentManager().findFragmentById(android.R.id.tabcontent) == null) {
+				  ft.add(R.id.tabcontent, newFragment).commit();
+			  }else{
+				  ft.replace(R.id.tabcontent, newFragment).commit();
+			  }
+	          
+//		  }
+		  
 		return false;
 	}
 

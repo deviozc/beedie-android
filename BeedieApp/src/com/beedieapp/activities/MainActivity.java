@@ -2,7 +2,9 @@ package com.beedieapp.activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -22,6 +24,13 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 		setTheme(R.style.Theme_Sherlock);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.FILL_PARENT);
+        FrameLayout frame = new FrameLayout(this);
+        frame.setId(android.R.id.tabcontent);
+        setContentView(frame, lp);
 		
 		this.navigationItemManager = new NavigationItemManager(this);
 		mSelected = (TextView)findViewById(R.id.text);
