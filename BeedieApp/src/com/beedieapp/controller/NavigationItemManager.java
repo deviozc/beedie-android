@@ -1,10 +1,7 @@
 package com.beedieapp.controller;
 
-import android.R;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.beedieapp.ui.fragments.ListFragment;
@@ -46,9 +43,9 @@ public class NavigationItemManager implements ActionBar.OnNavigationListener{
 			  }
 			  FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
 			  if (activity.getSupportFragmentManager().findFragmentById(android.R.id.tabcontent) == null) {
-				  ft.add(R.id.tabcontent, newFragment).commit();
+				  ft.add(android.R.id.tabcontent, newFragment).commit();
 			  }else{
-				  ft.replace(R.id.tabcontent, newFragment).commit();
+				  ft.replace(android.R.id.tabcontent, newFragment).commit();
 			  }
 	          
 //		  }
