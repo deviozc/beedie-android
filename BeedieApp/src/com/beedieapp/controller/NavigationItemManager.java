@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.beedieapp.model.BeedieNewsListModel;
 import com.beedieapp.ui.fragments.ListFragment;
 
 public class NavigationItemManager implements ActionBar.OnNavigationListener{
@@ -25,6 +26,7 @@ public class NavigationItemManager implements ActionBar.OnNavigationListener{
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		
 			ListFragment newFragment = new ListFragment();
+			newFragment.setModel(new BeedieNewsListModel());
 //		  if (activity.getSupportFragmentManager().findFragmentById(android.R.id.tabcontent) == null) {
 			  if(itemPosition == 0){
 //			FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
