@@ -1,10 +1,14 @@
 package com.beedieapp.controller;
 
+import java.util.Observable;
+
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.beedieapp.model.BeedieNewsListModel;
+import com.beedieapp.model.ListModel;
+import com.beedieapp.model.ModelTask;
 import com.beedieapp.ui.fragments.ListFragment;
 
 public class NavigationItemManager implements ActionBar.OnNavigationListener{
@@ -17,7 +21,9 @@ public class NavigationItemManager implements ActionBar.OnNavigationListener{
 		return instance;
 	}
 	public NavigationItemManager(){
-		
+//		Observable ob = new Observable();
+//		currentModel = new BeedieNewsListModel(ob);
+//		this.refreshModel();
 	}
 	public NavigationItemManager(FragmentActivity activity){
 		this.activity = activity;
@@ -26,23 +32,25 @@ public class NavigationItemManager implements ActionBar.OnNavigationListener{
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		
 			ListFragment newFragment = new ListFragment();
-			newFragment.setModel(new BeedieNewsListModel());
+			ListModel model = new BeedieNewsListModel(newFragment);
+			
 //		  if (activity.getSupportFragmentManager().findFragmentById(android.R.id.tabcontent) == null) {
 			  if(itemPosition == 0){
-//			FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-//			ft.add(R.id.tabcontent, new ListFragment(), null);
-//			ft.commit();
-//			activity.getSupportFragmentManager().executePendingTransactions();
-			  
-			  newFragment.setLabel("Twitter");
+//				  currentModel = new BeedieNewsListModel();
+				  newFragment.setLabel("Twitter");
 			  }else if(itemPosition == 1){
+//				  currentModel = new BeedieNewsListModel();
 				  newFragment.setLabel("Facebook");
 			  }
 			  else if(itemPosition == 2){
+//				  currentModel = new BeedieNewsListModel();
 				  newFragment.setLabel("Flickr");
 			  }else if(itemPosition == 3){
-				  newFragment.setLabel("Facebook");
+//				  currentModel = new BeedieNewsListModel();
+				  newFragment.setLabel("Pinterest");
 			  }
+			  ModelTask task = new ModelTask();
+			  task.execute(model);
 			  FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
 			  if (activity.getSupportFragmentManager().findFragmentById(android.R.id.tabcontent) == null) {
 				  ft.add(android.R.id.tabcontent, newFragment).commit();
@@ -53,6 +61,12 @@ public class NavigationItemManager implements ActionBar.OnNavigationListener{
 //		  }
 		  
 		return false;
+	}
+//	public ListModel getModel(){
+//		return currentModel;
+//	}
+	public void refreshModel(){
+		
 	}
 
 }
