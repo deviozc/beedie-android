@@ -14,6 +14,7 @@ import android.util.Log;
 
 public abstract class ListModel extends Observable{
 	protected boolean ready = false;
+	protected boolean error = false;
 	public ListModel() {
 	}
 	public ListModel(Observer... observers) {
@@ -39,6 +40,16 @@ public abstract class ListModel extends Observable{
 		this.setChanged();
 		this.notifyObservers(getList());
 		this.ready = true;
+	}
+	protected void handleException(String msg){
+		this.setError();
+		Log.w("Warning", msg);
+	}
+	protected void setError(){
+		error = true;
+	}
+	public boolean hasError(){
+		return error;
 	}
 	
 }

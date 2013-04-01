@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.Window;
 import com.beedieapp.R;
 import com.beedieapp.controller.NavigationItemManager;
 
@@ -22,6 +23,7 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(R.style.Theme_Sherlock);
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.activity_main);
 		
 		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
@@ -31,7 +33,9 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
         frame.setId(android.R.id.tabcontent);
         setContentView(frame, lp);
 		
-		this.navigationItemManager = new NavigationItemManager(this);
+		this.navigationItemManager = NavigationItemManager.getInstance();
+		navigationItemManager.setActivity(this);
+		
 		mSelected = (TextView)findViewById(R.id.text);
 
         mLocations = getResources().getStringArray(R.array.list_menu);

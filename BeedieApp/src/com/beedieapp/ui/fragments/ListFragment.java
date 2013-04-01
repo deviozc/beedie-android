@@ -29,7 +29,8 @@ public class ListFragment extends SherlockListFragment implements Observer {
 	 @Override
 	 public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
-	  dialog = ProgressDialog.show(this.getActivity(), "Loading", "Retrieving Information...");
+	  this.getActivity().setProgressBarIndeterminateVisibility(true);
+//	  dialog = ProgressDialog.show(this.getActivity(), "Loading", "Retrieving Information...");
 //	  ListModel model = NavigationItemManager.getInstance().getModel();
 //	  model.execute();
 //	  while(!model.isReady()){}
@@ -44,37 +45,57 @@ public class ListFragment extends SherlockListFragment implements Observer {
 	public void setLabel(String label){
 		this.label = label;
 	}
+	@Override
+	public void onActivityCreated(Bundle savedState) {
+		super.onActivityCreated(savedState);
+//		setListShown(false);
+	}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_list, container, false);
-
+        View v = inflater.inflate(R.layout.fragment_list, container, false);   
         return v;
     }
 	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable observable, Object ob) {
-		if(ob instanceof List){
+		Log.w("Writing", "update");
+		if(ob instanceof List && this.isAdded()){
+			Log.w("Writing", "updating");
 			List<Map<String, String>> list = DataHelper.toListItems((List<QueryItem>) ob);
 			this.setList(list);
 			Log.w("ready", "Is ready");
 			if(dialog != null){
 				dialog.dismiss();
 			}
+			this.getActivity().setProgressBarIndeterminateVisibility(false);
+//			setListShown(true);
 		}
 	}
+	@Override
+	public void onDestroy (){
+		super.onDestroy();
+//		NavigationItemManager.getInstance().onDestroy();
+		if(dialog != null){
+			dialog.dismiss();
+		}
+		this.getActivity().setProgressBarIndeterminateVisibility(false);
+	}
 	private void setList(List<Map<String, String>> list){
-		final SimpleAdapter myListAdapter = new SimpleAdapter(ListFragment.this.getActivity(), list,
+		if(this.isDetached() || this.getActivity() == null){
+			return;
+		}
+		SimpleAdapter myListAdapter = new SimpleAdapter(this.getActivity(), list,
 	              R.layout.custom_list_item,
 	              new String[] {"title", "subtitle"},
 	              new int[] {android.R.id.text1,
 	                         android.R.id.text2});
-		this.getActivity().runOnUiThread(new Runnable() {
-		    public void run() {
-		    	setListAdapter(myListAdapter);
-		        dialog.dismiss();
-		    }
-		});
+
+    	setListAdapter(myListAdapter);
+    	if(dialog != null){
+			dialog.dismiss();
+		}
+
 		
 	}
 }

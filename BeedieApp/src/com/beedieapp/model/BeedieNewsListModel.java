@@ -46,6 +46,10 @@ public class BeedieNewsListModel extends ListModel {
 			this.parse(stream);
 		} catch (IOException e) {
 			e.printStackTrace();
+			handleException("No Internet");
+		} catch(Exception e) {
+			e.printStackTrace();
+			handleException("Unknown error");
 		}
 	}
 
@@ -66,7 +70,7 @@ public class BeedieNewsListModel extends ListModel {
 			items.add(readItem(reader));
 		}
 		reader.endArray();
-		this.ready();
+//		this.ready();
 
 		in.close();
 		reader.endObject();
